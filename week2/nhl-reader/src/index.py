@@ -5,15 +5,16 @@ from player_reader import PlayerReader
 from player_stats import PlayerStats
 
 
-def main():
+def get_players_by_nationality():
     season = input("Season (e.g. 2024-25): ").strip()
     nationality = input("Nationality (e.g. FIN): ").strip().upper()
-
     url = f"https://studies.cs.helsinki.fi/nhlstats/{season}/players"
     reader = PlayerReader(url)
     stats = PlayerStats(reader)
-    players = stats.top_scorers_by_nationality(nationality)
+    return season, nationality, stats.top_scorers_by_nationality(nationality)
 
+
+def create_table(season, nationality, players):
     table = Table(title=f"Players from {nationality}, season {season}")
     table.add_column("Player")
     table.add_column("Team")
@@ -31,7 +32,12 @@ def main():
             str(player.points),
             str(player.games),
         )
+    return table
 
+
+def main():
+    season, nationality, players = get_players_by_nationality()
+    table = create_table(season, nationality, players)
     Console().print(table)
 
 

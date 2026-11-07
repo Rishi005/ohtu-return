@@ -1,4 +1,4 @@
-class PlayerStats:
+class PlayerStats:  # pylint: disable=too-few-public-methods
     def __init__(self, reader):
         self.reader = reader
 
@@ -8,3 +8,16 @@ class PlayerStats:
                             if player.nationality == nationality]
         return sorted(national_players, key=lambda player: player.points,
                       reverse=True)
+
+    def top_scorers_by_team(self, team):
+        players = self.reader.get_players()
+        team_players = [player for player in players
+                        if player.team == team]
+        return sorted(team_players, key=lambda player: player.points,
+                      reverse=True)
+
+    def top_goal_scorers(self, how_many):
+        """Palauttaa how_many eniten maaleja tehnyttä pelaajaa maalimäärän mukaan laskevassa järjestyksessä"""
+        players = self.reader.get_players()
+        return sorted(players, key=lambda player: player.goals,
+                      reverse=True)[:how_many]
