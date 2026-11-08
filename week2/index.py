@@ -1,5 +1,5 @@
 # tehdään alussa importit
-
+# oops forgot to merge from big fix branch
 from logger import logger
 from summa import summa
 from erotus import erotus
