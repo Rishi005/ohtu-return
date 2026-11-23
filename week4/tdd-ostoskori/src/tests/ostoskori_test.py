@@ -54,3 +54,8 @@ class TestOstoskori(unittest.TestCase):
         self.kori.lisaa_tuote(self.maito)
         self.kori.lisaa_tuote(self.leipa)
         self.assertEqual(len(self.kori.ostokset()), 2)
+
+    def test_after_adding_two_same_products_cart_contains_one_purchase(self):
+        self.kori.lisaa_tuote(self.maito)
+        self.kori.lisaa_tuote(self.maito)
+        self.assertEqual(len(self.kori.ostokset()), 1)
